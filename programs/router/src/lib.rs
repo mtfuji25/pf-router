@@ -6,7 +6,7 @@ pub mod states;
 
 use crate::instructions::*;
 
-declare_id!("72kmmN8NVxrYCYPdAQ9RGuwXrdTpL54ACERtZAubzUf1");
+declare_id!("74EXxDQkbybAivua2WKhVcHSmeyiXp47mmqVwGT5dc2s");
 
 #[program]
 pub mod router {

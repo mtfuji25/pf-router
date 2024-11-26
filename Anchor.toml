@@ -5,14 +5,14 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-router = "72kmmN8NVxrYCYPdAQ9RGuwXrdTpL54ACERtZAubzUf1"
+router = "74EXxDQkbybAivua2WKhVcHSmeyiXp47mmqVwGT5dc2s"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
 cluster = "Localnet"
-wallet = "~/.config/solana/id.json"
+wallet = "./payer.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"

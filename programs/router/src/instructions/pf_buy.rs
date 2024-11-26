@@ -31,31 +31,23 @@ pub fn process<'a, 'b, 'c, 'info>(
         let bonding_curve_acc = &ctx.accounts.bonding_curve.to_account_info().clone();
         let data = &bonding_curve_acc.try_borrow_mut_data().unwrap();
 
-        let mut data_slice: &[u8] = &data;
+        let mut data_slice: &[u8] = &data[8..];
         let bonding_curve = BondingCurve::deserialize(&mut data_slice).unwrap();
+        msg!("bonding_curve: {:?}", bonding_curve);
 
         virtual_sol_reserves = bonding_curve.virtual_sol_reserves as u128;
         virtual_token_reserves = bonding_curve.virtual_token_reserves as u128;
         real_token_reserves = bonding_curve.real_token_reserves as u128;
     }
-    msg!(
-        "virtual_sol_reserves: {:?}, virtual_token_reserves: {:?}, real_token_reserves: {:?}",
-        virtual_sol_reserves,
-        virtual_token_reserves,
-        real_token_reserves
-    );
 
     // Calculate amounts
-    let k = virtual_sol_reserves
-        .checked_mul(virtual_token_reserves)
-        .unwrap();
     let new_sol_reserves = virtual_sol_reserves
         .checked_add(sol_amount as u128)
         .unwrap();
-    let new_token_reserves = k
-        .checked_div(new_sol_reserves)
+    let new_token_reserves = virtual_token_reserves
+        .checked_mul(sol_amount as u128)
         .unwrap()
-        .checked_add(1)
+        .checked_div(new_sol_reserves)
         .unwrap();
     let virtual_amount = virtual_token_reserves
         .checked_sub(new_token_reserves)

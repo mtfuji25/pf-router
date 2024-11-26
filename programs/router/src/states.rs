@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 
 use crate::errors::RouterError;
 
-#[derive(AnchorSerialize, AnchorDeserialize)]
+#[derive(Debug, AnchorSerialize, AnchorDeserialize)]
 pub struct BondingCurve {
     pub virtual_token_reserves: u64,
     pub virtual_sol_reserves: u64,
