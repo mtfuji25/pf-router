@@ -19,6 +19,7 @@ pub struct BuyArgs {
 pub fn process<'a, 'b, 'c, 'info>(
     ctx: Context<'a, 'b, 'c, 'info, PfBuyCtx<'info>>,
     sol_amount: u64,
+    slippage: u64,
 ) -> Result<()> {
     require!(sol_amount > 0, RouterError::InvalidAmount);
 
@@ -55,7 +56,13 @@ pub fn process<'a, 'b, 'c, 'info>(
     } else {
         real_token_reserves
     }) as u64;
-    let max_sol_cost = sol_amount;
+
+    let basis_points = 10000;
+    let max_sol_cost = sol_amount
+        .checked_mul(basis_points + slippage)
+        .unwrap()
+        .checked_div(basis_points)
+        .unwrap();
     msg!("amount: {:?}, max_sol_cost: {:?}", amount, max_sol_cost);
 
     // Prepare args

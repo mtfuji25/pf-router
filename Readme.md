@@ -8,7 +8,7 @@ anchor keys sync
 anchor build
 
 # Deploy
-solana program deploy target/deploy/router.so --with-compute-unit-price 100000 --max-sign-attempts 100 -k ./payer.json -u https://cold-hidden-research.solana-mainnet.quiknode.pro/
+solana program deploy target/deploy/router.so --with-compute-unit-price 100000 --max-sign-attempts 60 -k ./payer.json -u https://cold-hidden-research.solana-mainnet.quiknode.pro/
 
 # Close 
 solana program close 72kmmN8NVxrYCYPdAQ9RGuwXrdTpL54ACERtZAubzUf1 --bypass-warning -k ./payer.json -u https://cold-hidden-research.solana-mainnet.quiknode.pro/

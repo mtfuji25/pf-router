@@ -16,8 +16,9 @@ pub mod router {
     pub fn pf_buy<'a, 'b, 'c, 'info>(
         ctx: Context<'a, 'b, 'c, 'info, PfBuyCtx<'info>>,
         amount: u64,
+        slippage: u64,
     ) -> Result<()> {
-        pf_buy::process(ctx, amount)
+        pf_buy::process(ctx, amount, slippage)
     }
 
     pub fn pf_sell(ctx: Context<PfSellCtx>, amount: u64) -> Result<()> {
