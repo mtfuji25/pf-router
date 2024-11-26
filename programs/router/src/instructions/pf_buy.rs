@@ -44,21 +44,17 @@ pub fn process<'a, 'b, 'c, 'info>(
     let new_sol_reserves = virtual_sol_reserves
         .checked_add(sol_amount as u128)
         .unwrap();
-    let new_token_reserves = virtual_token_reserves
+    let virtual_amount = virtual_token_reserves
         .checked_mul(sol_amount as u128)
         .unwrap()
         .checked_div(new_sol_reserves)
         .unwrap();
-    let virtual_amount = virtual_token_reserves
-        .checked_sub(new_token_reserves)
-        .unwrap();
 
-    // let amount = (if virtual_amount < real_token_reserves {
-    //     virtual_amount
-    // } else {
-    //     real_token_reserves
-    // }) as u64;
-    let amount = virtual_amount as u64;
+    let amount = (if virtual_amount < real_token_reserves {
+        virtual_amount
+    } else {
+        real_token_reserves
+    }) as u64;
     let max_sol_cost = sol_amount;
     msg!("amount: {:?}, max_sol_cost: {:?}", amount, max_sol_cost);
 
