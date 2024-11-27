@@ -86,8 +86,8 @@ pub fn process<'a, 'b, 'c, 'info>(
             AccountMeta::new(ctx.accounts.user_ata.key(), false),
             AccountMeta::new(ctx.accounts.authority.key(), true),
             AccountMeta::new_readonly(ctx.accounts.system_program.key(), false),
+            AccountMeta::new_readonly(ctx.accounts.associated_token_program.key(), false),
             AccountMeta::new_readonly(ctx.accounts.token_program.key(), false),
-            AccountMeta::new_readonly(ctx.accounts.rent.key(), false),
             AccountMeta::new_readonly(ctx.accounts.event_authority.key(), false),
             AccountMeta::new_readonly(ctx.accounts.pf_program.key(), false),
         ];
@@ -108,8 +108,8 @@ pub fn process<'a, 'b, 'c, 'info>(
                 ctx.accounts.user_ata.to_account_info().clone(),
                 ctx.accounts.authority.to_account_info().clone(),
                 ctx.accounts.system_program.to_account_info().clone(),
+                ctx.accounts.associated_token_program.to_account_info().clone(),
                 ctx.accounts.token_program.to_account_info().clone(),
-                ctx.accounts.rent.to_account_info().clone(),
                 ctx.accounts.event_authority.to_account_info().clone(),
             ],
         )?;
